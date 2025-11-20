@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0">
+		<link rel="stylesheet" href="{{ url_for('static',filename='css/w3.css') }}">
+		<style>
+			mycamera,myresult{
+				width:320px,
+				height:240px,
+				border:1px solid #c0c0c0
+			}
+		</style>
+		<title>School v1.0</title>
+		
+	</head>
+	<body class ="w3-light-gray">
+		<div class="w3-bar w3-indigo w3-container">
+			<h5>School1v1.0</h5>
+		</div>
+		<div class="w3-container w3-padding">
+			{% block content %}
+			{% endblock %}
+			<center>
+				<hr/>
+				&copy; University of Cebu-Main, 2025
+			</center>			
+		</div>
+		<script src="{{ url_for('static',filename='js/webcam.min.js') }}"></script>
+		<script>
+				Webcam.set({
+				width: 320,
+				height: 240,
+				dest_width: 320,
+				dest_height: 240,
+				image_format: 'jpeg',
+				jpeg_quality: 90,
+				force_flash: false,
+				flip_horiz: true,
+				fps: 45
+			});
+	
+			// Attach camera here
+			Webcam.attach("#mycamera");
+			
+			function takepicture(){
+						Webcam.snap( function(data_uri) {
+				document.getElementById('myresult').innerHTML = '<img id="imageprev" src="'+data_uri+'"/>';
+				document.getElementById('myidno').innerHTML = document.getElementById('idno').value;
+				document.getElementById('mylastname').innerHTML = document.getElementById('lastname').value;
+				document.getElementById('myfirstname').innerHTML = document.getElementById('firstname').value;
+				document.getElementById('mycourse').innerHTML = document.getElementById('course').value;
+				document.getElementById('mylevel').innerHTML = document.getElementById('level').value;
+				} );
+			}
+			
+			function savedata(){
+				var image = document.getElementById("imageprev").src;
+				var idno = document.getElementById('idno').value;
+				var lastname = document.getElementById('lastname').value;
+				var firstname = document.getElementById('firstname').value;
+				var course = document.getElementById('course').value;
+				var level = document.getElementById('level').value;
+			
+				Webcam.upload( image, '/savestudent?idno='+idno+'&lastname='+lastname+'&firstname='+firstname+'&course='+course+'&level='+level,
+				function(code, text) {
+					alert('Student Information Saved!')
+			// Upload complete!
+			// 'code' will be the HTTP response code from the server, e.g. 200
+			// 'text' will be the raw response content
+			} );
+			
+			}
+		
+		
+		</script>
+	</body>
+</html>	
