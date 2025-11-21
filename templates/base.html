@@ -16,15 +16,19 @@
 		
 	</head>
 	<body class ="w3-light-gray">
-		<div class="w3-bar w3-indigo w3-container">
-			<h5>School1v1.0</h5>
+		<div class="w3-bar w3-indigo w3-container" style="position: sticky;top: 0;>
+			<h5 class="w3-bar-item">School v1.0</h5>
+			<p class="w3-right w3-bar-item">
+				<a href="{{ url_for('add') }}" class="w3-button">ADD</a>
+				<a href="{{ url_for('mainindex') }}" class="w3-button">LIST</a>
+			</p>
 		</div>
-		<div class="w3-container w3-padding">
+		<div class="w3-container w3-padding" ">
 			{% block content %}
 			{% endblock %}
 			<center>
 				<hr/>
-				&copy; University of Cebu-Main, 2025
+				&copy; French Cyril Sambilad, 2025
 			</center>			
 		</div>
 		<script src="{{ url_for('static',filename='js/webcam.min.js') }}"></script>
@@ -76,4 +80,4 @@
 		
 		</script>
 	</body>
-</html>	
+</html>
