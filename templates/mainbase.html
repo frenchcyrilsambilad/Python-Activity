@@ -10,15 +10,63 @@
         <div class="w3-bar w3-indigo w3-container w3-padding">
             <h5 class="w3-bar-item">School v1.0</h5>
             <p class="w3-right w3-bar-item">
-                <a href="#" class="w3-button">ADD</a>
-                <a href="{{ url_for('index') }}" class="w3-button">LIST</a>          
+                <a href="{{ url_for('add') }}" class="w3-button">ADD</a>
+                <a href="{{ url_for('mainindex') }}" class="w3-button">LIST</a>          
             </p>
         </div>
 
         {% block content %}
         {% endblock %}
+					<center>
+				<hr/>
+				&copy; French Cyril Sambilad, 2025
+			</center>
 
         <script src="{{ url_for('static',filename='js/webcam.min.js') }}"></script>
-        <script></script>
+        <script>
+            function viewStudent(idno) {
+                fetch('/getstudent/' + idno)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.error) {
+                            alert('Student not found!');
+                            return;
+                        }
+                        document.getElementById('studentpic').src = '/' + data.image;
+                        document.getElementById('idno').innerText = data.idno;
+                        document.getElementById('lastname').innerText = data.lastname;
+                        document.getElementById('firstname').innerText = data.firstname;
+                        document.getElementById('course').innerText = data.course;
+                        document.getElementById('level').innerText = data.level;
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Error loading student information');
+                    });
+            }
+
+            function deleteStudent(idno, name) {
+                if (confirm('Are you sure you want to delete ' + name + '?')) {
+                    if (confirm('This action cannot be undone. Delete ' + name + '?')) {
+                        fetch('/deletestudent/' + idno, {
+                            method: 'POST'
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                alert('Student deleted successfully!');
+                                location.reload();
+                            } else {
+                                alert('Error deleting student: ' + data.message);
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            alert('Error deleting student');
+                        });
+                    }
+                }
+            }
+        </script>
     </body>
 </html>
