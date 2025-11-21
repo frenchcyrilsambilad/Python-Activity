@@ -1,0 +1,60 @@
+{% extends 'mainbase.html' %}
+{% block content %}
+	<div class="w3-row-padding w3-margin-top">
+		<div class="w3-third">
+			<div class="w3-container w3-padding w3-card-4">
+				<fieldset>
+					<legend><b>STUDENT</b></legend>
+					<center>
+						<img id="studentpic" src="static/images/default/person.png">
+					</center>
+					<p>
+						<label><b>IDNO</b></label>
+						<div id="idno"></div>
+					</p>
+					<p>
+						<label><b>LASTNAME</b></label>
+						<div id="lastname"></div>
+					</p>
+					<p>
+						<label><b>FIRSTNAME</b></label>
+						<div id="firstname"></div>
+					</p>
+					<p>
+						<label><b>COURSE</b></label>
+						<div id="course"></div>
+					</p>
+					<p>
+						<label><b>LEVEL</b></label>
+						<div id="level"></div>
+					</p>
+				</fieldset>
+				<br>
+			</div>
+		</div>
+		<div class="w3-twothird"></div>
+			<div class="w3-twothird">
+				<div class="w3-container w3-padding w3-card-4">
+					<table class="w3-table-all">
+						<tr>
+							<th>IDNO</th>
+							<th>NAME</th>
+							<th>COURSE</th>
+							<th>LEVEL</th>
+							<th>ACTION</th>
+						</tr>
+						<tr>
+							<td>0001</td>
+							<td>Omega, Lance</td>
+							<td>BSCS</td>
+							<td>4</td>
+							<td>
+								<button>&#128065;</button>
+								<button>&#128465;</button>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+	</div>
+{% endblock %}
