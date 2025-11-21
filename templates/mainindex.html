@@ -1,4 +1,4 @@
-{% extends 'mainbase.html' %}
+{% extends 'base.html' %}
 {% block content %}
 	<div class="w3-row-padding w3-margin-top">
 		<div class="w3-third">
@@ -6,55 +6,66 @@
 				<fieldset>
 					<legend><b>STUDENT</b></legend>
 					<center>
-						<img id="studentpic" src="static/images/default/person.png">
+						<img id="studentpic" src="static/images/default/person.png" style="max-width: 100%; height: auto; border: 2px solid #ccc; padding: 5px;">
 					</center>
 					<p>
 						<label><b>IDNO</b></label>
-						<div id="idno"></div>
+						<div id="idno" class="w3-text-gray">No student selected</div>
 					</p>
 					<p>
 						<label><b>LASTNAME</b></label>
-						<div id="lastname"></div>
+						<div id="lastname" class="w3-text-gray"></div>
 					</p>
 					<p>
 						<label><b>FIRSTNAME</b></label>
-						<div id="firstname"></div>
+						<div id="firstname" class="w3-text-gray"></div>
 					</p>
 					<p>
 						<label><b>COURSE</b></label>
-						<div id="course"></div>
+						<div id="course" class="w3-text-gray"></div>
 					</p>
 					<p>
 						<label><b>LEVEL</b></label>
-						<div id="level"></div>
+						<div id="level" class="w3-text-gray"></div>
 					</p>
 				</fieldset>
 				<br>
 			</div>
 		</div>
-		<div class="w3-twothird"></div>
-			<div class="w3-twothird">
-				<div class="w3-container w3-padding w3-card-4">
-					<table class="w3-table-all">
-						<tr>
+		<div class="w3-twothird">
+			<div class="w3-container w3-padding w3-card-4">
+				<table class="w3-table-all">
+					<thead>
+						<tr class="w3-indigo">
 							<th>IDNO</th>
 							<th>NAME</th>
 							<th>COURSE</th>
 							<th>LEVEL</th>
 							<th>ACTION</th>
 						</tr>
-						<tr>
-							<td>0001</td>
-							<td>Omega, Lance</td>
-							<td>BSCS</td>
-							<td>4</td>
-							<td>
-								<button>&#128065;</button>
-								<button>&#128465;</button>
-							</td>
-						</tr>
-					</table>
-				</div>
+					</thead>
+					<tbody>
+						{% if students %}
+							{% for student in students %}
+							<tr>
+								<td>{{ student['idno'] }}</td>
+								<td>{{ student['lastname'] }}, {{ student['firstname'] }}</td>
+								<td>{{ student['course'] }}</td>
+								<td>{{ student['level'] }}</td>
+								<td>
+									<button class="w3-button w3-green w3-small" onclick="viewStudent('{{ student['idno'] }}')" title="View Student">&#128065;</button>
+									<button class="w3-button w3-red w3-small" onclick="deleteStudent('{{ student['idno'] }}', '{{ student['lastname'] }}, {{ student['firstname'] }}')" title="Delete Student">&#128465;</button>
+								</td>
+							</tr>
+							{% endfor %}
+						{% else %}
+							<tr>
+								<td colspan="5" class="w3-center w3-text-gray">No students found. Click ADD to register students.</td>
+							</tr>
+						{% endif %}
+					</tbody>
+				</table>
 			</div>
+		</div>
 	</div>
 {% endblock %}
